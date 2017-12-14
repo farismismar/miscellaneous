@@ -1,2 +1,2 @@
 # miscellaneous
-A repo for code that does not formally belong anywhere
+A repo for C++ code that does not formally belong anywhere
