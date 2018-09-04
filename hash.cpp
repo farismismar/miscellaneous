@@ -30,6 +30,7 @@ ostream &operator<<(ostream &os, Hash &h)
 
     return os;
 }
+
 Hash::Hash(int size)
 {
     table = new vector<string> [size];
@@ -39,6 +40,7 @@ Hash::Hash(int size)
 Hash::~Hash()
 {
     delete [] table;
+    table = nullptr;
 }
 
 inline void Hash::clear()
