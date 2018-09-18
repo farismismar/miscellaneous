@@ -9,11 +9,12 @@ private:
     int graph_size;
     bool *visited;
     void unvisit() {for (int i = 0; i < graph_size; i++) visited[i] = false;}
+    void DFSUtil(int, bool []);
 public:
     Graph(int n);
     bool add_edge(int source, int dest);
     void bfs(int start);
-    void dfs(int start);
+    void dfs_rec(int start);
     ~Graph();
 };
 
@@ -28,6 +29,21 @@ Graph::~Graph()
 {
     delete [] adjacentLists;
     delete [] visited;
+}
+
+void Graph::DFSUtil(int v, bool visited[])
+{
+    // Mark the current node as visited and
+    // print it
+    visited[v] = true;
+    cout << "Visited " << v << " ";
+
+    // Recur for all the vertices adjacent
+    // to this vertex
+    list<int>::iterator i;
+    for (i = adjacentLists[v].begin(); i != adjacentLists[v].end(); ++i)
+        if (!visited[*i])
+            DFSUtil(*i, visited);
 }
 
 bool Graph::add_edge(int source, int dest)
@@ -55,16 +71,14 @@ void Graph::bfs(int start)
  
     list<int>::iterator i;
  
-    while(!queue.empty())
-    {
+    while(!queue.empty()) {
         int currVertex = queue.front();
         cout << "Visited " << currVertex << " ";
         queue.pop_front();
  
         for(i = adjacentLists[currVertex].begin(); i != adjacentLists[currVertex].end(); i++) {
             int adjVertex = *i;
-            if(!visited[adjVertex])
-            {
+            if(!visited[adjVertex]) {
                 visited[adjVertex] = true;
                 queue.push_back(adjVertex);
             }
@@ -72,34 +86,14 @@ void Graph::bfs(int start)
     }
 }
 
-void Graph::dfs(int start)
+// DFS traversal
+void Graph::dfs_rec(int v)
 {
-    list<int> stack;
     unvisit();
-
-    visited[start] = true;
-    stack.push_front(start);
  
-    list<int>::iterator i;
- 
-    while(!stack.empty())
-    {
-        int currVertex = stack.front();
-        cout << "Visited " << currVertex << " ";
-        stack.pop_front();
- 
-        // node the order of the traversal may cause a different solution to the DFS
-        for(i = adjacentLists[currVertex].begin(); i != adjacentLists[currVertex].end(); i++) {
-            int adjVertex = *i;
-            if (!visited[adjVertex]) {
-                visited[adjVertex] = true;
-                stack.push_front(adjVertex);
-            }
-        }
-    }
+    // Call the recursive function
+    DFSUtil(v, visited);
 }
-
-
 
 // Driver program
 int main()
@@ -113,8 +107,8 @@ int main()
     
     cout << "BFS" << endl;
     g.bfs(2);
-    cout << "\nDFS" << endl;
-    g.dfs(0);
+    cout << "\nDFS Rec" << endl;
+    g.dfs_rec(2);
  
     return 0;
 }
