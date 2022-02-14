@@ -18,6 +18,11 @@ public:
 		this->right = NULL;
 		this->left = NULL;
 	}
+
+	~Node()
+	{
+		cout << "Deleting node with data: " << this->data << endl;
+	}
 };
 
 template<class T>
@@ -54,6 +59,18 @@ void postTraverse(Node<T>* root)
 }
 
 
+template<class T>
+void cleanTree(Node<T>* root)
+{
+	// Cleaning the tree up is through post-order traversal.
+	if (root->left != NULL)
+		cleanTree(root->left);
+	
+	if (root->right != NULL)
+		cleanTree(root->right);
+
+	delete root;
+}
 
 int main(void)
 {
@@ -72,8 +89,8 @@ int main(void)
 	cout << "Post-order Traversal" << endl;
 	postTraverse(root);
 
-	delete root;
-
+	cleanTree(root);
+	
 	return 0;
 }
 
