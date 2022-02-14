@@ -6,23 +6,23 @@ using namespace std;
 template<class T>
 class Node
 {
-public:
-	T data;
-	Node<T>* right = NULL;
-	Node<T>* left = NULL;
+	public:
+		T data;
+		Node<T>* right = NULL;
+		Node<T>* left = NULL;
 
-	Node(T d)
-	{
-		this->data = d;
+		Node(T d)
+		{
+			this->data = d;
 
-		this->right = NULL;
-		this->left = NULL;
-	}
+			this->right = NULL;
+			this->left = NULL;
+		}
 
-	~Node()
-	{
-		cout << "Deleting node with data: " << this->data << endl;
-	}
+		~Node()
+		{
+			cout << "Deleting node with data: " << this->data << endl;
+		}
 };
 
 template<class T>
@@ -71,6 +71,7 @@ void cleanTree(Node<T>* root)
 
 	delete root;
 }
+
 
 int main(void)
 {

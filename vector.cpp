@@ -3,6 +3,7 @@
 
 using namespace std;
 
+void bubble_sort(vector<int>);
 vector<int> sample(vector<int>, unsigned int, bool);
 
 // operator overloading.
@@ -20,41 +21,20 @@ ostream& operator<<(ostream &os, vector<T> &v)
 	return os;
 }
 
-int main()
+void bubble_sort(vector<int> &w)
 {
-	vector<int> v = { 1, 2, 3, 4, 5, 6, 7 };
-
-	vector<int> w = sample(v, 5, true);
-	cout << w << endl;
-	
-	int el;
-
-	// Insert to the beginning
-	v.insert(v.begin(), 6);
-
-	// Insert to the end
-	v.insert(v.end(), { 10 });
-
-	// Remove first element
-	el = v[0];
-	cout << "First element is: " << el << endl;
-	v.erase(v.begin());
-
-	// Remove the third element:
-	cout << v << endl;
-	v.erase(v.begin() + 3);
-	cout << v << endl;
-
-	// Read last element
-	el = v[v.size() - 1];
-	cout << "Last element is: " << el << endl;
-
-	cout << v << endl;
-
-	return 0;
+	int temp;
+	unsigned int size = w.size();
+	for (unsigned int i = 0; i < size - 1; i++)
+	        for (unsigned int j = 0; j < size - 1; j++)
+	                if (w[j] > w[j + 1]) {
+	                        temp = w[j + 1];
+	                        w[j + 1] = w[j];
+	                        w[j] = temp;
+	                }
 }
 
-vector<int> sample(vector<int> from, unsigned int k, bool replace)
+vector<int> sample(vector<int> &from, unsigned int k, bool replace)
 {
 	int random_index;
 	int to_add;
@@ -83,3 +63,36 @@ vector<int> sample(vector<int> from, unsigned int k, bool replace)
 	return output;
 }
 
+int main()
+{
+	int el;
+
+	vector<int> v = { 1, 2, 3, 4, 5, 6, 7 };
+	vector<int> w = sample(v, 5, true);
+
+	cout << w << endl;
+	
+	// Insert to the beginning
+	v.insert(v.begin(), 6);
+
+	// Insert to the end
+	v.insert(v.end(), { 10 });
+
+	// Remove first element
+	el = v[0];
+	cout << "First element is: " << el << endl;
+	v.erase(v.begin());
+
+	// Remove the third element:
+	cout << v << endl;
+	v.erase(v.begin() + 3);
+	cout << v << endl;
+
+	// Read last element
+	el = v[v.size() - 1];
+	cout << "Last element is: " << el << endl;
+
+	cout << v << endl;
+
+	return 0;
+}
